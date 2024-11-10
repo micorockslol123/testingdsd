@@ -6366,6 +6366,10 @@
 
 
 
+function clonefunction1(a)
+ return function(a)
+end
+end
 
 if not _G.Bypassed then
 local Players = game:GetService("Players")
@@ -6375,7 +6379,7 @@ local Workspace = game:GetService("Workspace")
 local plr = Players.LocalPlayer
 local NextFrame = RunService.Heartbeat
 local ForceStop = false
-local clonef = clonefunction
+local clonef = clonefunction or clonefunction1
 local format = clonef(string.format)
 local gsub = clonef(string.gsub)
 local match = clonef(string.match)
@@ -6447,7 +6451,7 @@ SharedRequires["Services"].DumpServices = function()
 	SharedRequires["Services"] = services
 end
 
-SharedRequires["Services"].GetService = function(name: string)
+SharedRequires["Services"].GetService = function(name, string)
 	for _, v in SharedRequires["Services"] do
 		if rawequal(name, v.Name) then
 			return v
@@ -6479,7 +6483,7 @@ SharedRequires["Maid"].Setup = function()
 
 	setmetatable(getgenv().Settings, {
 		__metatable = "Locked",
-		__index = function(t: table, k)
+		__index = function(t, table, k)
 			return rawget(t, k, val)
 		end,
 		__newindex = function(t, k)
@@ -6932,8 +6936,8 @@ local function updateESP(player)
     end
 end
 function Utils.FindTable(Table, Name)
-    assert(type(Table) == "table", "Utils.FindTable :: Parsed 'Table' value is invalid")
-    assert(typeof(Name) == "string", "Utils.FindTable :: Parsed 'Name' value is invalid")
+    assert(type(Table) == "table", "Utils.FindTable, Parsed 'Table' value is invalid")
+    assert(typeof(Name) == "string", "Utils.FindTable, Parsed 'Name' value is invalid")
 
     for i,v in next, Table do
         if v.Name == Name or i == Name then
